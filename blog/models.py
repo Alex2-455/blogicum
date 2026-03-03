@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 import datetime
 
+
 class BaseModel(models.Model):
     is_published = models.BooleanField(
         'Опубликовано',
@@ -10,7 +11,7 @@ class BaseModel(models.Model):
     created_at = models.DateTimeField(
         'Добавлено',
         auto_now_add=True)
-    
+
     class Meta:
         abstract = True
 
@@ -30,16 +31,17 @@ class Category(BaseModel):
         'Идентификатор',
         unique=True,
         blank=False,
-        help_text='Идентификатор страницы для URL; разрешены символы латиницы, цифры, дефис и подчёркивание.')
+        help_text='Идентификатор страницы для URL; разрешены символы '
+        'латиницы, цифры, дефис и подчёркивание.')
 
     def __str__(self):
         return self.title
- 
+
     class Meta:
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
-    
+
 class Location(BaseModel):
     name = models.CharField(
         'Название места',
@@ -48,11 +50,10 @@ class Location(BaseModel):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
-    
 
 
 class Post(BaseModel):
@@ -67,7 +68,8 @@ class Post(BaseModel):
         'Дата и время публикации',
         default=datetime.datetime.now,
         blank=False,
-        help_text='Если установить дату и время в будущем — можно делать отложенные публикации.')
+        help_text='Если установить дату и время в будущем'
+        ' — можно делать отложенные публикации.')
     location = models.ForeignKey(
         Location,
         on_delete=models.SET_NULL,
@@ -91,7 +93,7 @@ class Post(BaseModel):
 
     def __str__(self):
         return self.title
-    
+
     class Meta:
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
